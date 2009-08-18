@@ -1,0 +1,10 @@
+src/_ReSharper.FluentDatabase/
+src/TestResults/
+src/FluentDatabase.Tests/*.user
+src/FluentDatabase.Tests/bin/
+src/FluentDatabase.Tests/obj/
+src/FluentDatabase/*.user
+src/FluentDatabase/bin/
+src/FluentDatabase/obj/
+src/*.user
+src/*.suo
