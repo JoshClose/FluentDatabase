@@ -1,4 +1,9 @@
-﻿using System.Reflection;
+﻿#region License
+// Copyright 2009 Josh Close
+// This file is a part of FluentDatabase and is licensed under the MS-PL
+// See LICENSE.txt for details or visit http://www.opensource.org/licenses/ms-pl.html
+#endregion
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -8,9 +13,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle( "FluentDatabase" )]
 [assembly: AssemblyDescription( "" )]
 [assembly: AssemblyConfiguration( "" )]
-[assembly: AssemblyCompany( "Microsoft" )]
+[assembly: AssemblyCompany( "" )]
 [assembly: AssemblyProduct( "FluentDatabase" )]
-[assembly: AssemblyCopyright( "Copyright © Microsoft 2009" )]
+[assembly: AssemblyCopyright( "Copyright © 2009 Josh Close" )]
 [assembly: AssemblyTrademark( "" )]
 [assembly: AssemblyCulture( "" )]
 
@@ -32,5 +37,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion( "1.0.0.0" )]
-[assembly: AssemblyFileVersion( "1.0.0.0" )]
+[assembly: AssemblyVersion( "0.1.*" )]
+[assembly: AssemblyFileVersion( "0.1.*" )]

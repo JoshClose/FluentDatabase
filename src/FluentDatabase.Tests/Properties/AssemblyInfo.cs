@@ -1,4 +1,9 @@
-﻿using System.Reflection;
+﻿#region License
+// Copyright 2009 Josh Close
+// This file is a part of FluentDatabase and is licensed under the MS-PL
+// See LICENSE.txt for details or visit http://www.opensource.org/licenses/ms-pl.html
+#endregion
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -8,9 +13,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle( "FluentDatabase.Tests" )]
 [assembly: AssemblyDescription( "" )]
 [assembly: AssemblyConfiguration( "" )]
-[assembly: AssemblyCompany( "Microsoft" )]
+[assembly: AssemblyCompany( "" )]
 [assembly: AssemblyProduct( "FluentDatabase.Tests" )]
-[assembly: AssemblyCopyright( "Copyright © Microsoft 2009" )]
+[assembly: AssemblyCopyright( "Copyright © 2009 Josh Close" )]
 [assembly: AssemblyTrademark( "" )]
 [assembly: AssemblyCulture( "" )]
 
