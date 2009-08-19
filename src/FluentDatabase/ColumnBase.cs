@@ -1,15 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 
 namespace FluentDatabase
 {
 	public abstract class ColumnBase : IColumn
 	{
-		protected string Name { get; private set; }
-		protected SqlDbType Type { get; private set; }
-		protected bool AutoIncrementing { get; private set; }
-		protected List<IConstraint> Constraints { get; private set; }
+		public string Schema { get; set; }
+		public string Name { get; set; }
+		public SqlDbType Type { get; set; }
+		public int Size { get; set; }
+		public bool AutoIncrementing { get; set; }
+		public List<IConstraint> Constraints { get; set; }
+
+		protected abstract void WriteColumnBegin( StreamWriter writer );
+		protected abstract void WriteColumnEnd( StreamWriter writer );
 
 		protected ColumnBase()
 		{
@@ -28,6 +34,12 @@ namespace FluentDatabase
 			return this;
 		}
 
+		public IColumn WithSize( int size )
+		{
+			Size = size;
+			return this;
+		}
+
 		public IColumn IsAutoIncrementing()
 		{
 			AutoIncrementing = true;
@@ -43,5 +55,16 @@ namespace FluentDatabase
         }
 
 		protected abstract IConstraint CreateConstraint();
+
+		public void Write( StreamWriter writer )
+		{
+			WriteColumnBegin( writer );
+			foreach( var constraint in Constraints )
+			{
+				constraint.Schema = Schema;
+				constraint.Write( writer );
+			}
+			WriteColumnEnd( writer );
+		}
 	}
 }

@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace FluentDatabase
 {
 	public abstract class TableBase : ITable
 	{
-		protected string Name { get; private set; }
-		protected List<IColumn> Columns { get; private set; }
+		public string Schema { get; set; }
+		public string Name { get; set; }
+		public List<IColumn> Columns { get; set; }
+
+		protected abstract void WriteTableBegin( StreamWriter writer );
+		protected abstract void WriteTableEnd( StreamWriter writer );
 
 		protected TableBase()
 		{
@@ -28,5 +33,16 @@ namespace FluentDatabase
 		}
 
 		protected abstract IColumn CreateColumn();
+
+		public void Write( StreamWriter writer )
+		{
+			WriteTableBegin( writer );
+			foreach( var column in Columns )
+			{
+				column.Schema = Schema;
+				column.Write( writer );
+			}
+			WriteTableEnd( writer );
+		}
 	}
 }

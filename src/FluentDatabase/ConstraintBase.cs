@@ -1,12 +1,15 @@
-﻿namespace FluentDatabase
+﻿using System.IO;
+
+namespace FluentDatabase
 {
 	public abstract class ConstraintBase : IConstraint
 	{
-		protected string Name { get; private set; }
-		protected ConstraintType Type { get; private set; }
-		protected string TableName { get; private set; }
-		protected string ColumnName { get; private set; }
-		protected string Expression { get; private set; }
+		public string Name { get; set; }
+		public ConstraintType Type { get; set; }
+		public string Schema { get; set; }
+		public string Table { get; set; }
+		public string Column { get; set; }
+		public string Expression { get; set; }
 
 		public IConstraint WithName( string name )
 		{
@@ -22,8 +25,8 @@
 
 		public IConstraint HasReferenceTo( string tableName, string columnName )
 		{
-			TableName = tableName;
-			ColumnName = columnName;
+			Table = tableName;
+			Column = columnName;
 			return this;
 		}
 
@@ -32,5 +35,7 @@
 			Expression = expression;
 			return this;
 		}
+
+		public abstract void Write( StreamWriter writer );
 	}
 }

@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ColumnBase.cs" />
+    <Compile Include="ColumnSize.cs" />
     <Compile Include="ConstraintBase.cs" />
     <Compile Include="ConstraintType.cs" />
     <Compile Include="DatabaseBase.cs" />

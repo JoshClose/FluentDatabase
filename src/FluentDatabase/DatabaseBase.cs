@@ -1,17 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace FluentDatabase
 {
 	public abstract class DatabaseBase : IDatabase
 	{
-		protected string Name { get; private set; }
-		protected string Schema { get; private set; }
-		protected List<ITable> Tables { get; private set; }
+		public string Name { get; set; }
+		public string Schema { get; set; }
+		public List<ITable> Tables { get; set; }
+
+		protected abstract ITable CreateTable();
+		protected abstract void WriteUse( StreamWriter writer );
 
 		protected DatabaseBase()
 		{
 			Tables = new List<ITable>();
+			Schema = "dbo";
 		}
 
 		public IDatabase WithName( string name )
@@ -20,7 +25,7 @@ namespace FluentDatabase
 			return this;
 		}
 
-		public IDatabase UseSchema( string schema )
+		public IDatabase UsingSchema( string schema )
 		{
 			Schema = schema;
 			return this;
@@ -34,6 +39,21 @@ namespace FluentDatabase
 			return this;
 		}
 
-		protected abstract ITable CreateTable();
+		public void Write( StreamWriter writer )
+		{
+			WriteUse( writer );
+			writer.WriteLine();
+			foreach( var table in Tables )
+			{
+				if( string.IsNullOrEmpty( table.Schema ) )
+				{
+					// If the schema has not been overriden at the schema level,
+					// apply the database schema.
+					table.Schema = Schema;
+				}
+				table.Write( writer );
+				writer.WriteLine();
+			}
+		}
 	}
 }

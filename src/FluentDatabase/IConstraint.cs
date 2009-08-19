@@ -1,10 +1,19 @@
-﻿namespace FluentDatabase
+﻿using System.IO;
+
+namespace FluentDatabase
 {
 	/// <summary>
 	/// Template for a constraint.
 	/// </summary>
 	public interface IConstraint
 	{
+		string Name { get; set; }
+		ConstraintType Type { get; set; }
+		string Schema { get; set; }
+		string Table { get; set; }
+		string Column { get; set; }
+		string Expression { get; set; }
+
 		/// <summary>
 		/// Set the name of the constraint.
 		/// </summary>
@@ -35,5 +44,7 @@
 		/// <param name="expression">The check constraint expression.</param>
 		/// <returns>The constraint.</returns>
 		IConstraint WithExpression( string expression );
+
+		void Write( StreamWriter write );
 	}
 }
