@@ -1,6 +1,17 @@
-FluentDatabase allow you to create databases like this:
+FluentDatabase is a library to create fluently create a number of different database types.
 
-    DatabaseFactory.Create( databaseType )
+Currently supported databases are:
+* Access
+* Firebird
+* MySQL
+* Oracle
+* PostgreSQL
+* SQLite
+* SQLServer
+
+Example:
+
+    DatabaseFactory.Create( DatabaseType.SQLServer )
     	.WithName( "Business" )
     	.UsingSchema( "Test" )
     	.AddTable( table => table
@@ -30,7 +41,7 @@ FluentDatabase allow you to create databases like this:
     	)
     ).Write( writer );
 
-Which will create the script:
+Creates the script:
 
     USE [Business]
     
