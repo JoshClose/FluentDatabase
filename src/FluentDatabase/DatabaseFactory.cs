@@ -15,6 +15,8 @@ namespace FluentDatabase
 			{
 				case DatabaseType.Access:
 					return new Access.Database();
+				case DatabaseType.Firebird:
+					return new Firebird.Database();
 				case DatabaseType.MySQL:
 					return new MySql.Database();
 				case DatabaseType.Oracle:

@@ -7,12 +7,10 @@ namespace FluentDatabase.Oracle
 	{
 		protected override void WriteTableBegin( StreamWriter writer )
 		{
-			throw new NotImplementedException();
 		}
 
 		protected override void WriteTableEnd( StreamWriter writer )
 		{
-			throw new NotImplementedException();
 		}
 
 		protected override IColumn CreateColumn()

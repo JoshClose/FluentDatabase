@@ -12,7 +12,6 @@ namespace FluentDatabase.PostgreSql
 
 		protected override void WriteUse( StreamWriter writer )
 		{
-			throw new NotImplementedException();
 		}
 	}
 }

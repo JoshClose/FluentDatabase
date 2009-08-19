@@ -7,7 +7,6 @@ namespace FluentDatabase.Sqlite
 	{
 		public override void Write( StreamWriter writer )
 		{
-			throw new NotImplementedException();
 		}
 	}
 }

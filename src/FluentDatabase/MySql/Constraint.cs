@@ -7,7 +7,6 @@ namespace FluentDatabase.MySql
 	{
 		public override void Write( StreamWriter writer )
 		{
-			throw new NotImplementedException();
 		}
 	}
 }

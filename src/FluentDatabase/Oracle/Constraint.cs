@@ -7,7 +7,6 @@ namespace FluentDatabase.Oracle
 	{
 		public override void Write( StreamWriter writer )
 		{
-			throw new NotImplementedException();
 		}
 	}
 }

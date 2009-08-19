@@ -7,7 +7,6 @@ namespace FluentDatabase.Firebird
 	{
 		public override void Write( StreamWriter writer )
 		{
-			throw new NotImplementedException();
 		}
 	}
 }

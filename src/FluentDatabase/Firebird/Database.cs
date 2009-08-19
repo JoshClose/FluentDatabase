@@ -12,7 +12,6 @@ namespace FluentDatabase.Firebird
 
 		protected override void WriteUse( StreamWriter writer )
 		{
-			throw new NotImplementedException();
 		}
 	}
 }
