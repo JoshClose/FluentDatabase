@@ -21,7 +21,7 @@ namespace FluentDatabase
 
 		IColumn WithName( string name );
 		IColumn OfType( SqlDbType type );
-		IColumn WithSize( int size );
+		IColumn OfType( SqlDbType type, int size );
 		IColumn IsAutoIncrementing();
 		IColumn AddConstraint( Action<IConstraint> constraint );
 		void Write( StreamWriter writer );

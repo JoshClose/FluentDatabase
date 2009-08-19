@@ -45,6 +45,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Access\Column.cs" />
+    <Compile Include="Access\Constraint.cs" />
+    <Compile Include="Access\Database.cs" />
+    <Compile Include="Access\Table.cs" />
     <Compile Include="ColumnBase.cs" />
     <Compile Include="ColumnSize.cs" />
     <Compile Include="ConstraintBase.cs" />
@@ -52,11 +56,31 @@
     <Compile Include="DatabaseBase.cs" />
     <Compile Include="DatabaseFactory.cs" />
     <Compile Include="DatabaseType.cs" />
+    <Compile Include="Firebird\Column.cs" />
+    <Compile Include="Firebird\Constraint.cs" />
+    <Compile Include="Firebird\Database.cs" />
+    <Compile Include="Firebird\Table.cs" />
     <Compile Include="IColumn.cs" />
     <Compile Include="IConstraint.cs" />
     <Compile Include="IDatabase.cs" />
     <Compile Include="ITable.cs" />
+    <Compile Include="MySql\Column.cs" />
+    <Compile Include="MySql\Constraint.cs" />
+    <Compile Include="MySql\Database.cs" />
+    <Compile Include="MySql\Table.cs" />
+    <Compile Include="Oracle\Column.cs" />
+    <Compile Include="Oracle\Constraint.cs" />
+    <Compile Include="Oracle\Database.cs" />
+    <Compile Include="Oracle\Table.cs" />
+    <Compile Include="PostgreSql\Column.cs" />
+    <Compile Include="PostgreSql\Constraint.cs" />
+    <Compile Include="PostgreSql\Database.cs" />
+    <Compile Include="PostgreSql\Table.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sqlite\Column.cs" />
+    <Compile Include="Sqlite\Constraint.cs" />
+    <Compile Include="Sqlite\Database.cs" />
+    <Compile Include="Sqlite\Table.cs" />
     <Compile Include="SqlServer\Column.cs" />
     <Compile Include="SqlServer\Constraint.cs" />
     <Compile Include="SqlServer\Database.cs" />

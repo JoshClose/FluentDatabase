@@ -14,15 +14,15 @@ namespace FluentDatabase
 			switch( databaseServer )
 			{
 				case DatabaseType.Access:
-					throw new NotImplementedException();
+					return new Access.Database();
 				case DatabaseType.MySQL:
-					throw new NotImplementedException();
+					return new MySql.Database();
 				case DatabaseType.Oracle:
-					throw new NotImplementedException();
+					return new Oracle.Database();
 				case DatabaseType.PostgreSQL:
-					throw new NotImplementedException();
+					return new PostgreSql.Database();
 				case DatabaseType.SQLite:
-					throw new NotImplementedException();
+					return new Sqlite.Database();
 				case DatabaseType.SQLServer:
 					return new SqlServer.Database();
 				default:

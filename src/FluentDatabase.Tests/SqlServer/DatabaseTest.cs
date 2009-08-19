@@ -21,9 +21,9 @@ namespace FluentDatabase.Tests.SqlServer
 			{
 				using( var writer = new StreamWriter( stream ) )
 				{
-					DatabaseFactory.Create( DatabaseType.SQLServer )
+					var db = DatabaseFactory.Create( DatabaseType.Access )
 						.WithName( "Business" )
-						//.UsingSchema( "Test" )
+						.UsingSchema( "Test" )
 						.AddTable(
 						table => table
 						         	.WithName( "Companies" )
@@ -34,7 +34,7 @@ namespace FluentDatabase.Tests.SqlServer
 						         	          	constraint => constraint.OfType( ConstraintType.PrimaryKey ).WithName( "PK_Company_Id" ) )
 						         	)
 						         	.AddColumn(
-						         	column => column.WithName( "Name" ).OfType( SqlDbType.NVarChar ).WithSize( 100 )
+						         	column => column.WithName( "Name" ).OfType( SqlDbType.NVarChar, 100 )
 						         	          	.AddConstraint( constraint => constraint.OfType( ConstraintType.NotNull ) )
 						         	)
 						)
@@ -55,13 +55,13 @@ namespace FluentDatabase.Tests.SqlServer
 						         	          	constraint.OfType( ConstraintType.ForeignKey ).HasReferenceTo( "Companies", "Id" ) )
 						         	)
 						         	.AddColumn(
-						         	column => column.WithName( "Name" ).OfType( SqlDbType.NVarChar ).WithSize( 50 )
+						         	column => column.WithName( "Name" ).OfType( SqlDbType.NVarChar, 50 )
 						         	          	.AddConstraint( constraint => constraint.OfType( ConstraintType.NotNull ) )
 						         	)
 						         	.AddColumn(
-						         	column => column.WithName( "Bio" ).OfType( SqlDbType.NVarChar ).WithSize( ColumnSize.Max )
+						         	column => column.WithName( "Bio" ).OfType( SqlDbType.NVarChar, ColumnSize.Max )
 						         	)
-						).Write( writer );
+						);
 				}
 			}
 		}

@@ -39,9 +39,10 @@ namespace FluentDatabase
 			return this;
 		}
 
-		public IColumn WithSize( int size )
+		public IColumn OfType( SqlDbType type, int size )
 		{
 			Size = size;
+			OfType( type );
 			return this;
 		}
 

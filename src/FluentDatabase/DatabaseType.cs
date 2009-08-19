@@ -28,7 +28,8 @@ namespace FluentDatabase
 		Oracle = 3,
 		Access = 4,
 		PostgreSQL = 5,
-		MySQL = 6
+		MySQL = 6,
+		Firebird = 7
 // ReSharper restore InconsistentNaming
 	}
 }
