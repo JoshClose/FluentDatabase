@@ -8,3 +8,4 @@ src/FluentDatabase/bin/
 src/FluentDatabase/obj/
 src/*.user
 src/*.suo
+build/

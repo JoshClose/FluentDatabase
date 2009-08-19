@@ -33,7 +33,7 @@ namespace FluentDatabase.Tests
 							         	column => column.WithName( "Id" ).OfType( SqlDbType.Int ).IsAutoIncrementing()
 							         	          	.AddConstraint( constraint => constraint.OfType( ConstraintType.NotNull ) )
 							         	          	.AddConstraint(
-							         	          	constraint => constraint.OfType( ConstraintType.PrimaryKey ).WithName( "PK_Company_Id" ) )
+							         	          	constraint => constraint.OfType( ConstraintType.PrimaryKey ).WithName( "PK_Companies_Id" ) )
 							         	)
 							         	.AddColumn(
 							         	column => column.WithName( "Name" ).OfType( SqlDbType.NVarChar, 100 )
@@ -54,7 +54,7 @@ namespace FluentDatabase.Tests
 							         	          	.AddConstraint( constraint => constraint.OfType( ConstraintType.NotNull ) )
 							         	          	.AddConstraint(
 							         	          	constraint =>
-							         	          	constraint.OfType( ConstraintType.ForeignKey ).HasReferenceTo( "Companies", "Id" ) )
+							         	          	constraint.WithName( "FK_Employees_CompanyId" ).OfType( ConstraintType.ForeignKey ).HasReferenceTo( "Companies", "Id" ) )
 							         	)
 							         	.AddColumn(
 							         	column => column.WithName( "Name" ).OfType( SqlDbType.NVarChar, 50 )
