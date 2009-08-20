@@ -8,6 +8,9 @@ using System.IO;
 
 namespace FluentDatabase.SqlServer
 {
+	/// <summary>
+	/// SQL Server constraint.
+	/// </summary>
 	public class Constraint : ConstraintBase
 	{
 		public override void Write( StreamWriter writer )

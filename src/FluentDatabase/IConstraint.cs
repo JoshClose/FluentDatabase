@@ -12,25 +12,22 @@ namespace FluentDatabase
 	/// </summary>
 	public interface IConstraint
 	{
-		string Name { get; set; }
-		ConstraintType Type { get; set; }
-		string Schema { get; set; }
-		string Table { get; set; }
-		string Column { get; set; }
-		string Expression { get; set; }
-
 		/// <summary>
-		/// Set the name of the constraint.
+		/// Sets the name of the constraint.
 		/// </summary>
 		/// <param name="name">The name of the constraint.</param>
-		/// <returns></returns>
 		IConstraint WithName( string name );
+
+		/// <summary>
+		/// Sets the name of the schema.
+		/// </summary>
+		/// <param name="schema">The schema.</param>
+		IConstraint UsingSchema( string schema );
 
 		/// <summary>
 		/// Set the type of the constraint.
 		/// </summary>
 		/// <param name="type"></param>
-		/// <returns></returns>
 		IConstraint OfType( ConstraintType type );
 
 		/// <summary>
@@ -39,17 +36,19 @@ namespace FluentDatabase
 		/// </summary>
 		/// <param name="tableName">The name of the table the foreign key constraint is referencing.</param>
 		/// <param name="columnName">The name of the column in the table the foreign key constraint is referencing.</param>
-		/// <returns>The constraint.</returns>
 		IConstraint HasReferenceTo( string tableName, string columnName );
 
 		/// <summary>
-		/// Set the check expression of the constraint.
+		/// Sets the check expression of the constraint.
 		/// Used with <see cref="ConstraintType.Check"/>.
 		/// </summary>
 		/// <param name="expression">The check constraint expression.</param>
-		/// <returns>The constraint.</returns>
 		IConstraint WithExpression( string expression );
 
-		void Write( StreamWriter write );
+		/// <summary>
+		/// Writes the constraint to writer.
+		/// </summary>
+		/// <param name="writer">The writer.</param>
+		void Write( StreamWriter writer );
 	}
 }

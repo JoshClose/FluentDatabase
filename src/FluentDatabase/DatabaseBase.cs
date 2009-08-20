@@ -9,11 +9,15 @@ using System.IO;
 
 namespace FluentDatabase
 {
+	/// <summary>
+	/// Base class for creating a database. Use this instead
+	/// of implementing <see cref="IDatabase"/> directly.
+	/// </summary>
 	public abstract class DatabaseBase : IDatabase
 	{
-		public string Name { get; set; }
-		public string Schema { get; set; }
-		public List<ITable> Tables { get; set; }
+		protected string Name { get; set; }
+		protected string Schema { get; set; }
+		protected List<ITable> Tables { get; set; }
 
 		protected abstract ITable CreateTable();
 		protected abstract void WriteUse( StreamWriter writer );
@@ -36,7 +40,7 @@ namespace FluentDatabase
 			return this;
 		}
 
-		public IDatabase AddTable( Action<ITable> table )
+		public IDatabase HasTable( Action<ITable> table )
 		{
 			var newTable = CreateTable();
 			table.Invoke( newTable );
@@ -50,12 +54,7 @@ namespace FluentDatabase
 			writer.WriteLine();
 			foreach( var table in Tables )
 			{
-				if( string.IsNullOrEmpty( table.Schema ) )
-				{
-					// If the schema has not been overriden at the schema level,
-					// apply the database schema.
-					table.Schema = Schema;
-				}
+				table.UsingSchema( Schema );
 				table.Write( writer );
 				writer.WriteLine();
 			}

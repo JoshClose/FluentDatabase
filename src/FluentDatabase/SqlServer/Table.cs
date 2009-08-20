@@ -7,6 +7,9 @@ using System.IO;
 
 namespace FluentDatabase.SqlServer
 {
+	/// <summary>
+	/// SQL Server table.
+	/// </summary>
 	public class Table : TableBase
 	{
 		protected override IColumn CreateColumn()
@@ -16,6 +19,11 @@ namespace FluentDatabase.SqlServer
 
 		protected override void WriteTableBegin( StreamWriter writer )
 		{
+			if( string.IsNullOrEmpty( Name ) )
+			{
+				throw new FluentDatabaseSqlServerException( "The database name cannot be null or empty." );
+			}
+
 			writer.WriteLine( string.Format( "CREATE TABLE [{0}].[{1}]", Schema, Name ) );
 			writer.WriteLine( "(" );
 		}

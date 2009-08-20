@@ -65,6 +65,7 @@
     <Compile Include="Firebird\Constraint.cs" />
     <Compile Include="Firebird\Database.cs" />
     <Compile Include="Firebird\Table.cs" />
+    <Compile Include="FluentDatabaseException.cs" />
     <Compile Include="IColumn.cs" />
     <Compile Include="IConstraint.cs" />
     <Compile Include="IDatabase.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="SqlServer\Column.cs" />
     <Compile Include="SqlServer\Constraint.cs" />
     <Compile Include="SqlServer\Database.cs" />
+    <Compile Include="SqlServer\FluentDatabaseSqlServerException.cs" />
     <Compile Include="SqlServer\Table.cs" />
     <Compile Include="TableBase.cs" />
   </ItemGroup>

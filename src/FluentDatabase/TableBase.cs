@@ -9,11 +9,17 @@ using System.IO;
 
 namespace FluentDatabase
 {
+	/// <summary>
+	/// Base class for creating a table. Use this instead
+	/// of implementing <see cref="ITable"/> directly.
+	/// </summary>
 	public abstract class TableBase : ITable
 	{
-		public string Schema { get; set; }
-		public string Name { get; set; }
-		public List<IColumn> Columns { get; set; }
+		private bool isSchemaFinal;
+
+		protected string Schema { get; set; }
+		protected string Name { get; set; }
+		protected List<IColumn> Columns { get; set; }
 
 		protected abstract void WriteTableBegin( StreamWriter writer );
 		protected abstract void WriteTableEnd( StreamWriter writer );
@@ -29,7 +35,23 @@ namespace FluentDatabase
 			return this;
 		}
 
-		public ITable AddColumn( Action<IColumn> column )
+		public ITable UsingSchema( string schema )
+		{
+			if( !isSchemaFinal )
+			{
+				Schema = schema;
+			}
+			return this;
+		}
+
+		public ITable UsingSchema( string schema, bool isFinal )
+		{
+			isSchemaFinal = isFinal;
+			Schema = schema;
+			return this;
+		}
+
+		public ITable HasColumn( Action<IColumn> column )
 		{
 			var newColumn = CreateColumn();
 			column.Invoke( newColumn );
@@ -44,7 +66,7 @@ namespace FluentDatabase
 			WriteTableBegin( writer );
 			foreach( var column in Columns )
 			{
-				column.Schema = Schema;
+				column.UsingSchema( Schema );
 				column.Write( writer );
 			}
 			WriteTableEnd( writer );

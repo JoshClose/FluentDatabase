@@ -7,18 +7,28 @@ using System.IO;
 
 namespace FluentDatabase
 {
+	/// <summary>
+	/// Base class for creating a constraint. Use this instead
+	/// of implementing <see cref="IConstraint"/> directly.
+	/// </summary>
 	public abstract class ConstraintBase : IConstraint
 	{
-		public string Name { get; set; }
-		public ConstraintType Type { get; set; }
-		public string Schema { get; set; }
-		public string Table { get; set; }
-		public string Column { get; set; }
-		public string Expression { get; set; }
+		protected string Name { get; set; }
+		protected ConstraintType Type { get; set; }
+		protected string Schema { get; set; }
+		protected string Table { get; set; }
+		protected string Column { get; set; }
+		protected string Expression { get; set; }
 
 		public IConstraint WithName( string name )
 		{
 			Name = name;
+			return this;
+		}
+
+		public IConstraint UsingSchema( string schema )
+		{
+			Schema = schema;
 			return this;
 		}
 

@@ -9,6 +9,9 @@ using System.IO;
 
 namespace FluentDatabase.SqlServer
 {
+	/// <summary>
+	/// SQL Server column.
+	/// </summary>
 	public class Column : ColumnBase
 	{
 		protected override IConstraint CreateConstraint()
@@ -18,6 +21,11 @@ namespace FluentDatabase.SqlServer
 
 		protected override void WriteColumnBegin( StreamWriter writer )
 		{
+			if( string.IsNullOrEmpty( Name ) )
+			{
+				throw new FluentDatabaseSqlServerException( "The column name cannot be null or empty." );
+			}
+
 			writer.Write( string.Format( "\t[{0}]", Name ) );
 			writer.Write( string.Format( " {0}", GetSqlDbType() ) );
 			if( AutoIncrementing )

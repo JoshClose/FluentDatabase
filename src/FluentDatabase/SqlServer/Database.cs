@@ -7,6 +7,9 @@ using System.IO;
 
 namespace FluentDatabase.SqlServer
 {
+	/// <summary>
+	/// SQL Server database.
+	/// </summary>
 	public class Database : DatabaseBase
 	{
 		protected override ITable CreateTable()
@@ -16,7 +19,10 @@ namespace FluentDatabase.SqlServer
 
 		protected override void WriteUse( StreamWriter writer )
 		{
-			writer.WriteLine( string.Format( "USE [{0}]", Name ) );
+			if( !string.IsNullOrEmpty( Name ) )
+			{
+				writer.WriteLine( string.Format( "USE [{0}]", Name ) );
+			}
 		}
 	}
 }

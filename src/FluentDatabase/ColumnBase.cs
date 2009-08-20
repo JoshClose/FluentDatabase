@@ -10,14 +10,18 @@ using System.IO;
 
 namespace FluentDatabase
 {
+	/// <summary>
+	/// Base class for creating a column. Use this instead
+	/// of implementing <see cref="IColumn"/> directly.
+	/// </summary>
 	public abstract class ColumnBase : IColumn
 	{
-		public string Schema { get; set; }
-		public string Name { get; set; }
-		public SqlDbType Type { get; set; }
-		public int Size { get; set; }
-		public bool AutoIncrementing { get; set; }
-		public List<IConstraint> Constraints { get; set; }
+		protected string Schema { get; set; }
+		protected string Name { get; set; }
+		protected SqlDbType Type { get; set; }
+		protected int Size { get; set; }
+		protected bool AutoIncrementing { get; set; }
+		protected List<IConstraint> Constraints { get; set; }
 
 		protected abstract void WriteColumnBegin( StreamWriter writer );
 		protected abstract void WriteColumnEnd( StreamWriter writer );
@@ -30,6 +34,12 @@ namespace FluentDatabase
 		public IColumn WithName( string name )
 		{
 			Name = name;
+			return this;
+		}
+
+		public IColumn UsingSchema( string schema )
+		{
+			Schema = schema;
 			return this;
 		}
 
@@ -52,7 +62,7 @@ namespace FluentDatabase
 			return this;
 		}
 
-        public IColumn AddConstraint( Action<IConstraint> constraint )
+        public IColumn HasConstraint( Action<IConstraint> constraint )
         {
         	var newConstraint = CreateConstraint();
         	constraint.Invoke( newConstraint );
@@ -67,7 +77,7 @@ namespace FluentDatabase
 			WriteColumnBegin( writer );
 			foreach( var constraint in Constraints )
 			{
-				constraint.Schema = Schema;
+				constraint.UsingSchema( Schema );
 				constraint.Write( writer );
 			}
 			WriteColumnEnd( writer );

@@ -26,41 +26,41 @@ namespace FluentDatabase.Tests
 						DatabaseFactory.Create( databaseType )
 							.WithName( "Business" )
 							.UsingSchema( "Test" )
-							.AddTable(
+							.HasTable(
 							table => table
 							         	.WithName( "Companies" )
-							         	.AddColumn(
+							         	.HasColumn(
 							         	column => column.WithName( "Id" ).OfType( SqlDbType.Int ).IsAutoIncrementing()
-							         	          	.AddConstraint( constraint => constraint.OfType( ConstraintType.NotNull ) )
-							         	          	.AddConstraint(
+							         	          	.HasConstraint( constraint => constraint.OfType( ConstraintType.NotNull ) )
+							         	          	.HasConstraint(
 							         	          	constraint => constraint.OfType( ConstraintType.PrimaryKey ).WithName( "PK_Companies_Id" ) )
 							         	)
-							         	.AddColumn(
+							         	.HasColumn(
 							         	column => column.WithName( "Name" ).OfType( SqlDbType.NVarChar, 100 )
-							         	          	.AddConstraint( constraint => constraint.OfType( ConstraintType.NotNull ) )
+							         	          	.HasConstraint( constraint => constraint.OfType( ConstraintType.NotNull ) )
 							         	)
 							)
-							.AddTable(
+							.HasTable(
 							table => table
 							         	.WithName( "Employees" )
-							         	.AddColumn(
+							         	.HasColumn(
 							         	column => column.WithName( "Id" ).OfType( SqlDbType.Int ).IsAutoIncrementing()
-							         	          	.AddConstraint( constraint => constraint.OfType( ConstraintType.NotNull ) )
-							         	          	.AddConstraint(
+							         	          	.HasConstraint( constraint => constraint.OfType( ConstraintType.NotNull ) )
+							         	          	.HasConstraint(
 							         	          	constraint => constraint.OfType( ConstraintType.PrimaryKey ).WithName( "PK_Employees_Id" ) )
 							         	)
-							         	.AddColumn(
+							         	.HasColumn(
 							         	column => column.WithName( "CompanyId" ).OfType( SqlDbType.Int )
-							         	          	.AddConstraint( constraint => constraint.OfType( ConstraintType.NotNull ) )
-							         	          	.AddConstraint(
+							         	          	.HasConstraint( constraint => constraint.OfType( ConstraintType.NotNull ) )
+							         	          	.HasConstraint(
 							         	          	constraint =>
 							         	          	constraint.WithName( "FK_Employees_CompanyId" ).OfType( ConstraintType.ForeignKey ).HasReferenceTo( "Companies", "Id" ) )
 							         	)
-							         	.AddColumn(
+							         	.HasColumn(
 							         	column => column.WithName( "Name" ).OfType( SqlDbType.NVarChar, 50 )
-							         	          	.AddConstraint( constraint => constraint.OfType( ConstraintType.NotNull ) )
+							         	          	.HasConstraint( constraint => constraint.OfType( ConstraintType.NotNull ) )
 							         	)
-							         	.AddColumn(
+							         	.HasColumn(
 							         	column => column.WithName( "Bio" ).OfType( SqlDbType.NVarChar, ColumnSize.Max )
 							         	)
 							).Write( writer );
