@@ -1,4 +1,4 @@
-FluentDatabase is a library to create fluently create a number of different database types.
+FluentDatabase is a library to fluently create a number of different database types.
 
 Currently supported databases are:
 
@@ -12,8 +12,7 @@ Currently supported databases are:
 
 Example:
 
-<pre>
-<code>
+<pre><code>
 DatabaseFactory.Create( databaseType )
 	.WithName( "Business" )
 	.UsingSchema( "Test" )
@@ -55,13 +54,11 @@ DatabaseFactory.Create( databaseType )
 	         	column => column.WithName( "Bio" ).OfType( SqlDbType.NVarChar, ColumnSize.Max )
 	         	)
 	).Write( writer );
-</code>
-</pre>
+</code></pre>
 
 Creates the script:
 
-<pre>
-<code>
+<pre><code>
 USE [Business]
 
 CREATE TABLE [Test].[Companies]
@@ -77,5 +74,4 @@ CREATE TABLE [Test].[Employees]
 	[Name] NVARCHAR ( 50 ) NOT NULL,
 	[Bio] NVARCHAR ( MAX ),
 )
-</code>
-</pre>
+</code></pre>
