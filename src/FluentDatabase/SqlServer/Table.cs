@@ -12,16 +12,11 @@ namespace FluentDatabase.SqlServer
 	/// </summary>
 	public class Table : TableBase
 	{
-		protected override IColumn CreateColumn()
-		{
-			return new Column();
-		}
-
 		protected override void WriteTableBegin( StreamWriter writer )
 		{
 			if( string.IsNullOrEmpty( Name ) )
 			{
-				throw new FluentDatabaseSqlServerException( "The database name cannot be null or empty." );
+				throw new FluentDatabaseSqlServerException( Resource.TableNameEmptyErrorMessage );
 			}
 
 			writer.WriteLine( string.Format( "CREATE TABLE [{0}].[{1}]", Schema, Name ) );
@@ -31,6 +26,11 @@ namespace FluentDatabase.SqlServer
 		protected override void WriteTableEnd( StreamWriter writer )
 		{
 			writer.WriteLine( ")" );
+		}
+
+		protected override IColumn CreateColumn()
+		{
+			return new Column();
 		}
 	}
 }

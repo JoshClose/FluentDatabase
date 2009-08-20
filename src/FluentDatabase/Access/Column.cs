@@ -10,11 +10,7 @@ namespace FluentDatabase.Access
 {
 	public class Column : ColumnBase
 	{
-		protected override void WriteColumnBegin( StreamWriter writer )
-		{
-		}
-
-		protected override void WriteColumnEnd( StreamWriter writer )
+		protected override void WriteColumn( StreamWriter writer )
 		{
 		}
 

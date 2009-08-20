@@ -7,10 +7,33 @@ using System.IO;
 
 namespace FluentDatabase.Sqlite
 {
+	/// <summary>
+	/// SQLite constraint.
+	/// </summary>
 	public class Constraint : ConstraintBase
 	{
 		public override void Write( StreamWriter writer )
 		{
+			writer.Write( GetConstraintType() );
+		}
+
+		private string GetConstraintType()
+		{
+			switch( Type )
+			{
+				case ConstraintType.Check:
+					return string.Format( " CHECK {0}", Expression );
+				case ConstraintType.ForeignKey:
+					return string.Empty;
+				case ConstraintType.NotNull:
+					return " NOT NULL";
+				case ConstraintType.PrimaryKey:
+					return " PRIMARY KEY";
+				case ConstraintType.Unique:
+					return " UNIQUE";
+				default:
+					throw new FluentDatabaseSqliteException( string.Format( Resource.ConstraintNotSupportedErrorMessage, Type ) );
+			}
 		}
 	}
 }

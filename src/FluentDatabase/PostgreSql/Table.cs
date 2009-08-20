@@ -8,14 +8,30 @@ using System.IO;
 
 namespace FluentDatabase.PostgreSql
 {
+	/// <summary>
+	/// PostgreSQL table.
+	/// </summary>
 	public class Table : TableBase
 	{
 		protected override void WriteTableBegin( StreamWriter writer )
 		{
+			if( string.IsNullOrEmpty( Name ) )
+			{
+				throw new FluentDatabasePostgreSqlException( Resource.TableNameEmptyErrorMessage );
+			}
+
+			writer.Write( "CREATE TABLE " );
+			if( !string.IsNullOrEmpty( Schema ) )
+			{
+				writer.Write( string.Format( "{0}.", Schema ) );
+			}
+			writer.WriteLine( Name );
+			writer.WriteLine( "(" );
 		}
 
 		protected override void WriteTableEnd( StreamWriter writer )
 		{
+			writer.WriteLine( ");" );
 		}
 
 		protected override IColumn CreateColumn()

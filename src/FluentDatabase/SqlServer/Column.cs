@@ -14,29 +14,23 @@ namespace FluentDatabase.SqlServer
 	/// </summary>
 	public class Column : ColumnBase
 	{
-		protected override IConstraint CreateConstraint()
-		{
-			return new Constraint();
-		}
-
-		protected override void WriteColumnBegin( StreamWriter writer )
+		protected override void WriteColumn( StreamWriter writer )
 		{
 			if( string.IsNullOrEmpty( Name ) )
 			{
-				throw new FluentDatabaseSqlServerException( "The column name cannot be null or empty." );
+				throw new FluentDatabaseSqlServerException( Resource.ColumnNameEmptyErrorMessage );
 			}
 
-			writer.Write( string.Format( "\t[{0}]", Name ) );
-			writer.Write( string.Format( " {0}", GetSqlDbType() ) );
+			writer.Write( string.Format( "\t[{0}] {1}", Name, GetSqlDbType() ) );
 			if( AutoIncrementing )
 			{
 				writer.Write( " IDENTITY" );
 			}
 		}
 
-		protected override void WriteColumnEnd( StreamWriter writer )
+		protected override IConstraint CreateConstraint()
 		{
-			writer.WriteLine( "," );
+			return new Constraint();
 		}
 
 		private string GetSqlDbType()

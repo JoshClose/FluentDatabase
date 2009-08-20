@@ -64,10 +64,19 @@ namespace FluentDatabase
 		public void Write( StreamWriter writer )
 		{
 			WriteTableBegin( writer );
-			foreach( var column in Columns )
+			for( var i = 0; i < Columns.Count; i++ )
 			{
+				var column = Columns[i];
 				column.UsingSchema( Schema );
 				column.Write( writer );
+				if( i + 1 < Columns.Count )
+				{
+					writer.WriteLine( "," );
+				}
+				else
+				{
+					writer.WriteLine();
+				}
 			}
 			WriteTableEnd( writer );
 		}

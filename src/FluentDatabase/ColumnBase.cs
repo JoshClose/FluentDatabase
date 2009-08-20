@@ -23,8 +23,7 @@ namespace FluentDatabase
 		protected bool AutoIncrementing { get; set; }
 		protected List<IConstraint> Constraints { get; set; }
 
-		protected abstract void WriteColumnBegin( StreamWriter writer );
-		protected abstract void WriteColumnEnd( StreamWriter writer );
+		protected abstract void WriteColumn( StreamWriter writer );
 
 		protected ColumnBase()
 		{
@@ -74,13 +73,12 @@ namespace FluentDatabase
 
 		public void Write( StreamWriter writer )
 		{
-			WriteColumnBegin( writer );
+			WriteColumn( writer );
 			foreach( var constraint in Constraints )
 			{
 				constraint.UsingSchema( Schema );
 				constraint.Write( writer );
 			}
-			WriteColumnEnd( writer );
 		}
 	}
 }
