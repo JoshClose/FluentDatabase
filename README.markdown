@@ -12,50 +12,70 @@ Currently supported databases are:
 
 Example:
 
-    DatabaseFactory.Create( DatabaseType.SQLServer )
-    	.WithName( "Business" )
-    	.UsingSchema( "Test" )
-    	.AddTable( table => table
-    		.WithName( "Companies" )
-    		.AddColumn( column => column.WithName( "Id" ).OfType( SqlDbType.Int ).IsAutoIncrementing()
-    			.AddConstraint( constraint => constraint.OfType( ConstraintType.NotNull ) )
-    			.AddConstraint( constraint => constraint.OfType( ConstraintType.PrimaryKey ).WithName( "PK_Company_Id" ) )
-    		)
-    		.AddColumn( column => column.WithName( "Name" ).OfType( SqlDbType.NVarChar, 100 )
-    			.AddConstraint( constraint => constraint.OfType( ConstraintType.NotNull ) )
-    		)
-    	)
-    	.AddTable( table => table
-    		.WithName( "Employees" )
-    		.AddColumn( column => column.WithName( "Id" ).OfType( SqlDbType.Int ).IsAutoIncrementing()
-    			.AddConstraint( constraint => constraint.OfType( ConstraintType.NotNull ) )
-    			.AddConstraint( constraint => constraint.OfType( ConstraintType.PrimaryKey ).WithName( "PK_Employees_Id" ) )
-    		)
-    		.AddColumn( column => column.WithName( "CompanyId" ).OfType( SqlDbType.Int )
-    			.AddConstraint( constraint => constraint.OfType( ConstraintType.NotNull ) )
-    			.AddConstraint( constraint => constraint.OfType( ConstraintType.ForeignKey ).HasReferenceTo( "Companies", "Id" ) )
-    		)
-    		.AddColumn( column => column.WithName( "Name" ).OfType( SqlDbType.NVarChar, 50 )
-    			.AddConstraint( constraint => constraint.OfType( ConstraintType.NotNull ) )
-    		)
-    		.AddColumn( column => column.WithName( "Bio" ).OfType( SqlDbType.NVarChar, ColumnSize.Max )
-    	)
-    ).Write( writer );
+<pre>
+<code>
+DatabaseFactory.Create( databaseType )
+	.WithName( "Business" )
+	.UsingSchema( "Test" )
+	.HasTable(
+	table => table
+	         	.WithName( "Companies" )
+	         	.HasColumn(
+	         	column => column.WithName( "Id" ).OfType( SqlDbType.Int ).IsAutoIncrementing()
+	         	          	.HasConstraint( constraint => constraint.OfType( ConstraintType.NotNull ) )
+	         	          	.HasConstraint(
+	         	          	constraint => constraint.OfType( ConstraintType.PrimaryKey ).WithName( "PK_Companies_Id" ) )
+	         	)
+	         	.HasColumn(
+	         	column => column.WithName( "Name" ).OfType( SqlDbType.NVarChar, 100 )
+	         	          	.HasConstraint( constraint => constraint.OfType( ConstraintType.NotNull ) )
+	         	)
+	)
+	.HasTable(
+	table => table
+	         	.WithName( "Employees" )
+	         	.HasColumn(
+	         	column => column.WithName( "Id" ).OfType( SqlDbType.Int ).IsAutoIncrementing()
+	         	          	.HasConstraint( constraint => constraint.OfType( ConstraintType.NotNull ) )
+	         	          	.HasConstraint(
+	         	          	constraint => constraint.OfType( ConstraintType.PrimaryKey ).WithName( "PK_Employees_Id" ) )
+	         	)
+	         	.HasColumn(
+	         	column => column.WithName( "CompanyId" ).OfType( SqlDbType.Int )
+	         	          	.HasConstraint( constraint => constraint.OfType( ConstraintType.NotNull ) )
+	         	          	.HasConstraint(
+	         	          	constraint =>
+	         	          	constraint.WithName( "FK_Employees_CompanyId" ).OfType( ConstraintType.ForeignKey ).HasReferenceTo( "Companies", "Id" ) )
+	         	)
+	         	.HasColumn(
+	         	column => column.WithName( "Name" ).OfType( SqlDbType.NVarChar, 50 )
+	         	          	.HasConstraint( constraint => constraint.OfType( ConstraintType.NotNull ) )
+	         	)
+	         	.HasColumn(
+	         	column => column.WithName( "Bio" ).OfType( SqlDbType.NVarChar, ColumnSize.Max )
+	         	)
+	).Write( writer );
+</code>
+</pre>
 
 Creates the script:
 
-    USE [Business]
-    
-    CREATE TABLE [Test].[Companies]
-    (
-    	[Id] INT IDENTITY NOT NULL CONSTRAINT [PK_Companies_Id] PRIMARY KEY,
-    	[Name] NVARCHAR ( 100 ) NOT NULL,
-    )
-    
-    CREATE TABLE [Test].[Employees]
-    (
-    	[Id] INT IDENTITY NOT NULL CONSTRAINT [PK_Employees_Id] PRIMARY KEY,
-    	[CompanyId] INT NOT NULL CONSTRAINT [FK_Employees_CompanyId] FOREIGN KEY REFERENCES [Test].[Companies] ( [Id] ),
-    	[Name] NVARCHAR ( 50 ) NOT NULL,
-    	[Bio] NVARCHAR ( MAX ),
-    )
+<pre>
+<code>
+USE [Business]
+
+CREATE TABLE [Test].[Companies]
+(
+	[Id] INT IDENTITY NOT NULL CONSTRAINT [PK_Companies_Id] PRIMARY KEY,
+	[Name] NVARCHAR ( 100 ) NOT NULL,
+)
+
+CREATE TABLE [Test].[Employees]
+(
+	[Id] INT IDENTITY NOT NULL CONSTRAINT [PK_Employees_Id] PRIMARY KEY,
+	[CompanyId] INT NOT NULL CONSTRAINT [FK_Employees_CompanyId] FOREIGN KEY REFERENCES [Test].[Companies] ( [Id] ),
+	[Name] NVARCHAR ( 50 ) NOT NULL,
+	[Bio] NVARCHAR ( MAX ),
+)
+</code>
+</pre>
